@@ -10,7 +10,7 @@ metrics = [
     'gpu_name', 'mean_duration', 'relevance_pass_rate', 'bert_raw_avg',
     'bert_pass_rate', 'mpnet_raw_avg', 'mpnet_pass_rate', 'dpo_mean',
     'dpo_norm_mean', 'rlhf_mean', 'rlhf_mean_norm', 'reciprocate_reward_mean',
-    'reciprocate_reward_mean_norm', 'total_reward', 
+    'reciprocate_reward_mean_norm', 'total_reward', 'total_reward_excluding_relevance'
 ]
 
 benchmark_data = {
@@ -29,6 +29,7 @@ benchmark_data = {
     'reciprocate_reward_mean': '5.359351634979248',
     'reciprocate_reward_mean_norm': '.7486',
     'total_reward': '.6334',
+    'total_reward_excluding_relevance': '.6334',
 }
 # List to hold the data
 data = []
