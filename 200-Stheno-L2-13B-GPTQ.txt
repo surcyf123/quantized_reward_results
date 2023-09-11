@@ -8,6 +8,8 @@ mpnet_pass_rate 0.9437751004016064
 dpo_mean -12.196551832329318
 dpo_norm_mean 0.43471370056929837
 rlhf_mean -0.22710696698155208
-rlhf_mean_norm 0.26815961594562454
+rlhf_mean_norm 0.2681596154668724
 reciprocate_reward_mean 0.06912644704182942
 reciprocate_reward_mean_norm 0.06912644704182942
+total_reward 0.2748726697493437
+total_reward_excluding_relevance 0.31686710540549345
