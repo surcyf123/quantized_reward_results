@@ -1,5 +1,6 @@
 import os
 import torch
+import pandas as pd
 
 class RewardNormalizer:
     def __init__(self, mean: float, var: float):
@@ -17,11 +18,27 @@ class RewardNormalizer:
 def process_file(filepath):
     # Define your mean and variance sets
     mean_var_sets = {
-        "rlhf_mean": (0.75, 1.69),
-        "reciprocate_reward_mean": (2.91, 13.35),
-        "dpo_mean": (-11.78, 4.36)
+        "rlhf": (0.75, 1.69),
+        "reciprocate": (2.91, 13.35),
+        "dpo": (-11.78, 4.36)
     }
+    
+    # Read the corresponding CSV file
+    csv_filepath = filepath.replace('.txt', '.csv')
+    if not os.path.exists(csv_filepath):
+        return
+    
+    df = pd.read_csv(csv_filepath)
 
+    # Normalize each individual data point for the three metrics
+    for metric, (mean, var) in mean_var_sets.items():
+        normalizer = RewardNormalizer(mean, var)
+        df[f'{metric}_norm'] = df[metric].apply(normalizer.normalize_rewards)
+    
+    # Compute true normalized averages
+    norm_averages = {metric: df[f'{metric}_norm'].mean() for metric in mean_var_sets.keys()}
+
+    # Read the TXT file
     with open(filepath, 'r') as f:
         lines = f.readlines()
 
@@ -29,25 +46,18 @@ def process_file(filepath):
     if len(lines) <= 2 and any("gpu_name" in line for line in lines) and any("mean_duration" in line for line in lines):
         return
 
-    norm_values = {}
     relevance_pass_rate = 1.0  # Default to 1 if not found
     for i, line in enumerate(lines):
         if "relevance_pass_rate" in line:
             relevance_pass_rate = float(line.split()[-1])
             continue
-        for raw_str, (mean, var) in mean_var_sets.items():
-            if raw_str in line:
-                raw_value = float(line.split()[-1])
-                normalizer = RewardNormalizer(mean, var)
-                norm_value = normalizer.normalize_rewards(raw_value)
-                norm_values[raw_str] = norm_value
-                # Check if there is a next line and "_norm" is in it
-                if i < len(lines) - 1 and "_norm" in lines[i+1]:
-                    lines[i+1] = lines[i+1].split()[0] + " " + str(norm_value) + "\n"
+        for metric, norm_avg in norm_averages.items():
+            if f"{metric}_mean_norm" in line:
+                lines[i] = f"{metric}_mean_norm {norm_avg}\n"
 
     # Compute total_reward and total_reward_excluding_relevance
-    total_reward = (norm_values["rlhf_mean"] * 0.4 + norm_values["reciprocate_reward_mean"] * 0.3 + norm_values["dpo_mean"] * 0.3) * relevance_pass_rate
-    total_reward_excluding_relevance = (norm_values["rlhf_mean"] * 0.4 + norm_values["reciprocate_reward_mean"] * 0.3 + norm_values["dpo_mean"] * 0.3)
+    total_reward = (norm_averages["rlhf"] * 0.4 + norm_averages["reciprocate"] * 0.3 + norm_averages["dpo"] * 0.3) * relevance_pass_rate
+    total_reward_excluding_relevance = (norm_averages["rlhf"] * 0.4 + norm_averages["reciprocate"] * 0.3 + norm_averages["dpo"] * 0.3)
     
     total_reward_str = f"total_reward {total_reward}\n"
     total_reward_excluding_relevance_str = f"total_reward_excluding_relevance {total_reward_excluding_relevance}\n"
