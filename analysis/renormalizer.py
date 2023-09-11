@@ -16,11 +16,11 @@ class RewardNormalizer:
         return reward.item()
 
 def process_file(filepath):
-    # Define your mean and variance sets
+    # Define your mean and variance sets with their corresponding names in the txt file
     mean_var_sets = {
-        "rlhf": (0.75, 1.69),
-        "reciprocate": (2.91, 13.35),
-        "dpo": (-11.78, 4.36)
+        "rlhf": {"mean_var": (0.75, 1.69), "txt_name": "rlhf_mean_norm"},
+        "reciprocate": {"mean_var": (2.91, 13.35), "txt_name": "reciprocate_reward_mean_norm"},
+        "dpo": {"mean_var": (-11.78, 4.36), "txt_name": "dpo_norm_mean"}
     }
     
     # Read the corresponding CSV file
@@ -31,12 +31,14 @@ def process_file(filepath):
     df = pd.read_csv(csv_filepath)
 
     # Normalize each individual data point for the three metrics
-    for metric, (mean, var) in mean_var_sets.items():
-        normalizer = RewardNormalizer(mean, var)
-        df[f'{metric}_norm'] = df[metric].apply(normalizer.normalize_rewards)
-    
-    # Compute true normalized averages
-    norm_averages = {metric: df[f'{metric}_norm'].mean() for metric in mean_var_sets.keys()}
+    norm_averages = {}
+    for metric, data in mean_var_sets.items():
+        mean, var = data["mean_var"]
+        if metric in df.columns:
+            normalizer = RewardNormalizer(mean, var)
+            df[f'{metric}_norm'] = df[metric].apply(normalizer.normalize_rewards)
+            # Compute true normalized averages
+            norm_averages[metric] = df[f'{metric}_norm'].mean()
 
     # Read the TXT file
     with open(filepath, 'r') as f:
@@ -51,22 +53,23 @@ def process_file(filepath):
         if "relevance_pass_rate" in line:
             relevance_pass_rate = float(line.split()[-1])
             continue
-        for metric, norm_avg in norm_averages.items():
-            if f"{metric}_mean_norm" in line:
-                lines[i] = f"{metric}_mean_norm {norm_avg}\n"
+        for metric, data in mean_var_sets.items():
+            if data["txt_name"] in line:
+                lines[i] = f"{data['txt_name']} {norm_averages[metric]}\n"
 
     # Compute total_reward and total_reward_excluding_relevance
-    total_reward = (norm_averages["rlhf"] * 0.4 + norm_averages["reciprocate"] * 0.3 + norm_averages["dpo"] * 0.3) * relevance_pass_rate
-    total_reward_excluding_relevance = (norm_averages["rlhf"] * 0.4 + norm_averages["reciprocate"] * 0.3 + norm_averages["dpo"] * 0.3)
+    total_reward = (norm_averages.get("rlhf", 0) * 0.4 + norm_averages.get("reciprocate", 0) * 0.3 + norm_averages.get("dpo", 0) * 0.3) * relevance_pass_rate
+    total_reward_excluding_relevance = (norm_averages.get("rlhf", 0) * 0.4 + norm_averages.get("reciprocate", 0) * 0.3 + norm_averages.get("dpo", 0) * 0.3)
     
     total_reward_str = f"total_reward {total_reward}\n"
     total_reward_excluding_relevance_str = f"total_reward_excluding_relevance {total_reward_excluding_relevance}\n"
 
-    # Check if the total_reward or total_reward_excluding_relevance lines are already present
-    if not any("total_reward " in line for line in lines):
-        lines.append(total_reward_str)
-    if not any("total_reward_excluding_relevance " in line for line in lines):
-        lines.append(total_reward_excluding_relevance_str)
+    # Update the total_reward or total_reward_excluding_relevance lines if they are already present
+    for i, line in enumerate(lines):
+        if "total_reward " in line:
+            lines[i] = total_reward_str
+        elif "total_reward_excluding_relevance " in line:
+            lines[i] = total_reward_excluding_relevance_str
 
     # Write back to the file
     with open(filepath, 'w') as f:

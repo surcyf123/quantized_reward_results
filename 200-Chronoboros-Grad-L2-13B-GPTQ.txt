@@ -6,11 +6,11 @@ bert_pass_rate 0.9059415521579253
 mpnet_raw_avg 0.6557129123669931
 mpnet_pass_rate 0.9372943681052835
 dpo_mean -11.961214195858332
-dpo_norm_mean 0.46542084217071533
+dpo_norm_mean 0.45698652508320187
 rlhf_mean -0.23335670000823241
 rlhf_mean_norm 0.27472580493200166
 reciprocate_reward_mean 0.7002216638866872
-reciprocate_reward_mean_norm 0.2726576328277588
-total_reward 0.3123200950480439
-total_reward 0.3123200950480439
-total_reward_excluding_relevance 0.3474182844161987
+reciprocate_reward_mean_norm 0.32442758821970447
+total_reward 0.30952992306004623
+total_reward 0.30952992306004623
+total_reward_excluding_relevance 0.34431455596367255
