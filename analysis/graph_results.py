@@ -6,7 +6,9 @@ df_with_model_updated['model_name'] = df_with_model_updated['model_name'].str.re
 
 # Columns specified by the user to analyze
 specified_cols = [
-    'mean_duration', 'relevance_pass_rate', 'dpo_mean', 'rlhf_mean', 'reciprocate_reward_mean'
+    # 'mean_duration', 
+    'relevance_pass_rate', 
+    'dpo_norm_mean', 'rlhf_mean_norm', 'reciprocate_reward_mean_norm', 'total_reward'
 ]
 
 def plot_specific_data_updated(col):

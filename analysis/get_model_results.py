@@ -2,7 +2,7 @@ import os
 import csv
 
 # Path to the directory
-directory_path = 'quantized_reward_results'
+directory_path = '../'
 
 # Benchmark row = benchmark,,nan,100,,100,,100,-12.129820823669434,,1.420127272605896,,5.359351634979248,
 # Metrics to extract
@@ -27,7 +27,7 @@ benchmark_data = {
     'rlhf_mean': '1.420127272605896',
     'rlhf_mean_norm': '.69689',
     'reciprocate_reward_mean': '5.359351634979248',
-    'reciprocate_reward_mean_norm': '.7486'
+    'reciprocate_reward_mean_norm': '.7486',
     'total_reward': '.6334',
 }
 # List to hold the data
