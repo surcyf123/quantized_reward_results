@@ -1,0 +1,13 @@
+gpu_name RTX_4090
+mean_duration 0.46914700236186446
+relevance_pass_rate 0.10040160642570281
+bert_raw_avg -0.03820157855614477
+bert_pass_rate 0.10040160642570281
+mpnet_raw_avg 0.12503234394377163
+mpnet_pass_rate 0.1566265060240964
+dpo_mean -14.402610441767068
+dpo_norm_mean 0.13713170821408188
+rlhf_mean -0.6579621178004517
+rlhf_mean_norm 0.2011451528493659
+reciprocate_reward_mean 0.441005859375
+reciprocate_reward_mean_norm 0.441005859375
