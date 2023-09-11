@@ -20,8 +20,11 @@ def plot_specific_data_updated(col):
     # Extract benchmark value for the metric
     benchmark_value = df_with_model_updated[df_with_model_updated['model_name'] == 'benchmark'][col].values[0]
     
+    # Sort the dataframe based on the column of interest in descending order
+    sorted_df = df_with_model_updated.sort_values(by=col, ascending=False)
+    
     # Plotting the data
-    plt.bar(df_with_model_updated['model_name'][1:], df_with_model_updated[col][1:])
+    plt.bar(sorted_df['model_name'][1:], sorted_df[col][1:])
     
     # Plot benchmark line only if it's not NaN
     if not pd.isna(benchmark_value):
@@ -42,5 +45,3 @@ def plot_specific_data_updated(col):
 # Visualize the specified metrics using the updated plotting function
 for col in specified_cols:
     plot_specific_data_updated(col)
-
-
