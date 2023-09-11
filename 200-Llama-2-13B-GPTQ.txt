@@ -12,3 +12,4 @@ rlhf_mean_norm 0.05950295925140381
 reciprocate_reward_mean -3.8978730844463634
 reciprocate_reward_mean_norm 0.03121364116668701
 total_reward 0.3229990483338487
+total_reward_excluding_relevance 0.3955623239278793

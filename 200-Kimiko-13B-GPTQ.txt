@@ -13,3 +13,4 @@ reciprocate_reward_mean 0.41858180156415
 reciprocate_reward_mean_norm 0.247658371925354
 total_reward 0.31183202431717133
 total_reward 0.31183202431717133
+total_reward_excluding_relevance 0.36498277485370634
