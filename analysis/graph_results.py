@@ -9,7 +9,7 @@ specified_cols = [
     # 'mean_duration', 
     # 'relevance_pass_rate', 
     # 'dpo_mean', 'rlhf_mean', 'reciprocate_reward_mean',
-    'dpo_norm_mean', 'rlhf_mean_norm', 'reciprocate_reward_mean_norm', 'total_reward', 'total_reward_excluding_relevance'
+    'dpo_norm_mean', 'rlhf_mean_norm', 'reciprocate_reward_mean_norm', 'total_reward', #'total_reward_excluding_relevance'
 ]
 
 def plot_specific_data_updated(col):
