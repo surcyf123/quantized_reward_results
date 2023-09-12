@@ -10,4 +10,6 @@ dpo_norm_mean 0.47400540484482023
 rlhf_mean -0.15701920403743605
 rlhf_mean_norm 0.2844377467670594
 reciprocate_reward_mean 0.7098210991753472
-reciprocate_reward_mean_norm 0.7098210991753472
+reciprocate_reward_mean_norm 0.32467286797412426
+total_reward 0.31931799431292923
+total_reward_excluding_relevance 0.35337858037297504

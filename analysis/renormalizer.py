@@ -30,6 +30,11 @@ def process_file(filepath):
     
     df = pd.read_csv(csv_filepath)
 
+    # Convert data to numeric and handle non-numeric data
+    for metric in mean_var_sets.keys():
+        if metric in df.columns:
+            df[metric] = pd.to_numeric(df[metric], errors='coerce')
+
     # Normalize each individual data point for the three metrics and compute the average normalized values
     norm_averages = {}
     for metric, (mean, var) in mean_var_sets.items():
@@ -52,8 +57,12 @@ def process_file(filepath):
             relevance_pass_rate = float(line.split()[-1])
             continue
         for metric, norm_avg in norm_averages.items():
-            if f"{metric}_mean_norm" in line:
-                lines[i] = f"{metric}_mean_norm {norm_avg}\n"
+            # Adjusting the metric name for reciprocate
+            metric_name_in_txt = metric
+            if metric == "reciprocate":
+                metric_name_in_txt = "reciprocate_reward"
+            if f"{metric_name_in_txt}_mean_norm" in line:
+                lines[i] = f"{metric_name_in_txt}_mean_norm {norm_avg}\n"
 
     # Compute total_reward and total_reward_excluding_relevance
     total_reward = (norm_averages.get("rlhf", 0) * 0.4 + norm_averages.get("reciprocate", 0) * 0.3 + norm_averages.get("dpo", 0) * 0.3) * relevance_pass_rate
@@ -71,6 +80,7 @@ def process_file(filepath):
     # Write back to the file
     with open(filepath, 'w') as f:
         f.writelines(lines)
+
 
 # Iterate over all .txt files in the parent directory
 parent_directory = "../"
