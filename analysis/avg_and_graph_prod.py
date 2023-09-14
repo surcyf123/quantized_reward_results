@@ -28,6 +28,8 @@ model_averages.to_csv(output_file)
 
 # Load the new CSV file with averages
 avg_df = pd.read_csv(output_file)
+sorted_models = avg_df.sort_values(by='total_reward', ascending=False)['model_name'].tolist()
+print(sorted_models)
 
 # Visualize the averages using bar charts
 def plot_averages(column_name):
