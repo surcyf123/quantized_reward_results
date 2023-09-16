@@ -1,4 +1,5 @@
 prompt_index,num_tokens,temperature,top_p,top_k,repetition_penalty,duration,bert,bert_norm,dpo,dpo_norm,mpnet,mpnet_norm,rlhf,rlhf_norm,reciprocate,reciprocate_norm,total_reward,prompt,generated_text
+<<<<<<< HEAD
 0,200,0.7,0.7,50,1.0,1.5928680896759033,-0.042407967150211334,0.0,-14.5859375,0.08950647711753845,0.0020819250494241714,0.0,-0.10241686552762985,0.2560068964958191,-4.22265625,0.025460869073867798,0.0,"Sure! Here is a summary of the preceding context in four sentences:
 
 Medication errors related to adverse drug events (ADEs) occur frequently in the US, with millions of preventable cases each year. Pharmacists face challenges in verifying thousands of dispensed pills daily, and elderly patients may confuse or misadminister their medications due to pill confusion. Vision-based approaches can help solve these issues, but existing datasets for pill identification are limited and expensive to build. As a result, real-world pill identification systems require models that can learn from few training examples.
@@ -4683,3 +4684,5 @@ into the 2D map due to perspective changes of the endoscope
 Summarize the preceding context in 6 sentences. Do not try to create questions or answers for your summarization.
 
 ","Bladder cancer is the fourth and ninth most widespread cancer in the US and Europe, respectively. Lifetime monitoring of patients is required after surgical removal of cancer tumors. During a cystoscopy, a flexible or rigid endoscope is inserted into the bladder through the urethra, and a video of the epithelium is visualized on a screen. The clinician scans the epithelium by maintaining the distal tip of the cystoscope close to the internal organ wall. However, neither complete regions of interest nor anatomical landmarks are visible in these images. Bi-dimensional bladder image mosaicing algorithms were proposed for the standard white-light modality and for the fluorescence modality. A complete mosaicing algorithm consists of image registration, correction of image misalignment, and contrast, intensity and/or color correction. 2D mosaics"
+=======
+>>>>>>> 80e304837e6f25144211408a283d242c75daeb95
