@@ -1,2 +1,0 @@
-prompt_index,num_tokens,temperature,top_p,top_k,repetition_penalty,duration,bert,bert_norm,dpo,dpo_norm,mpnet,mpnet_norm,rlhf,rlhf_norm,reciprocate,reciprocate_norm,total_reward,prompt,generated_text
-prompt_index,num_tokens,temperature,top_p,top_k,repetition_penalty,duration,bert,bert_norm,dpo,dpo_norm,mpnet,mpnet_norm,rlhf,rlhf_norm,reciprocate,reciprocate_norm,total_reward,prompt,generated_text

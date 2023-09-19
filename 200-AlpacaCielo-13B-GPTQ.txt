@@ -1,3 +1,0 @@
-gpu_name RTX_3090
-total_reward 0.0
-total_reward_excluding_relevance 0.0

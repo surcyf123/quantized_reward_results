@@ -1,2 +1,0 @@
-gpu_name RTX_3090
-mean_duration nan

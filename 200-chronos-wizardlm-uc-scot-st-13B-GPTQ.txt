@@ -1,2 +1,0 @@
-gpu_name RTX_4090
-mean_duration nan
