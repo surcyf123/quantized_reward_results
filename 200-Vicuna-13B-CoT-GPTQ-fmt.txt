@@ -1,0 +1,13 @@
+gpu_name RTX_3090
+mean_duration 3.6322370347976682
+relevance_pass_rate 0.944
+bert_raw_avg -0.017065030278637962
+bert_pass_rate 0.952
+mpnet_raw_avg 0.665359330534935
+mpnet_pass_rate 0.988
+dpo_mean -12.17015625
+dpo_norm_mean 0.43525178110599516
+rlhf_mean -0.1251930529512465
+rlhf_mean_norm 0.2836591321229935
+reciprocate_reward_mean 0.7883331816075212
+reciprocate_reward_mean_norm 0.7883331816075212
